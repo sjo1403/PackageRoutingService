@@ -2,6 +2,7 @@
 
 #read data from distance table
 import csv
+import random
 import token
 
 data = open("distances.csv", 'r')
@@ -16,7 +17,7 @@ for line in rawData:
 data.close()
 
 #read data from miles table
-data2 = open("miles.csv", 'r')
+data2 = open("miles2.csv", 'r')
 rawMiles = csv.reader(data2)
 
 #parse data to build list of distances
@@ -27,12 +28,11 @@ for line in rawMiles:
         trim = string.strip().split('\t')
         miles.append(trim)
 
-
 #build location/distance edgelist from location and distance lists
 weightedEdgeList = []
 
 for i in range(0,27):   #columns
-    for j in range(i + 1,27):   #rows
+    for j in range(0, 27):   #rows
         two_list = []  #list of paired locations
         trip_list = []   #list of paired locations with respective distance
 
@@ -48,35 +48,27 @@ nextLoc = weightedEdgeList[0][1][0]     #the hub (WGU) is where the delivery pat
 path = [nextLoc]
 distanceTraveled = []
 tempList = []
-i = 1
 
-while i in range(27):
-
+while len(path) < 27:
     for item in weightedEdgeList:
         if item[1][0] == nextLoc:   #creates a tempList where the starting verticies are the same
             tempList.append(item)
 
-    if len(tempList) == 0:  #if the tempList is empty, go to the last location on the path and find the next closest location
-        nextLoc = path[-1]
-#        print(nextLoc)
-        i +=1
+    adjustedList = sorted(tempList)
+    tempList.clear()
 
-    else:
-        adjustedList = sorted(tempList)
-        tempList.clear()
+    i = 0
+    while i < len(adjustedList):
+        if adjustedList[i][1][1] not in path:
+            nextLoc = adjustedList[i][1][1]
+            mileage = adjustedList[i][0]
+            path.append(nextLoc)    #add ending vertex to the path
+            distanceTraveled.append(mileage)
+            i = 26
 
-        for set in adjustedList:
-            nextLoc = set[1][1]
-            mileage = set[0]
-
-            if nextLoc in path:     #loops through code block until a unique ending vertex is found
-                continue
-
-            else:
-        #        print(nextLoc)
-                path.append(nextLoc)    #add ending vertex to the path
-                distanceTraveled.append(mileage)
-                i += 1
+        else:
+            i += 1
+            continue
 
 for i in path:
     print(i)
@@ -87,3 +79,4 @@ for i in distanceTraveled:
 
 print("Miles traveled: " + str(floatDistance))
 print(distanceTraveled)
+
