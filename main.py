@@ -4,6 +4,9 @@ import Packages
 
 #read data from packages file
 import csv
+
+import Trucks
+
 data = open("packageFile.csv", 'r')
 rawData = csv.reader(data)
 
@@ -27,6 +30,8 @@ for line in range(1,40):
     package = Packages.Package(packageID,address,city,state,zip,deadline,mass)
     Packages.addPackage(package)
 
-dummy = Packages.Package(0,"Maple Ridge","City","State",00000,"EOB",100,"THIS IS A DUMMY, RETURN TO WORK TOMORROW")
+Packages.getPackages()
 
-print(dummy.notes)
+t1 = Trucks.Truck(1, [], [], [])
+t1r = Trucks.Truck(2,[], [], [])
+t2 = Trucks.Truck(1,[], [], [])

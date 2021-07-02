@@ -79,4 +79,3 @@ for i in distanceTraveled:
 
 print("Miles traveled: " + str(floatDistance))
 print(distanceTraveled)
-
