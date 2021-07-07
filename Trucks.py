@@ -1,11 +1,8 @@
-
-
 class Truck:
-    def __init__(self, ID, packages, route, mileage):
+    def __init__(self, ID, packages, route):
         self.ID = ID
         self.packages = packages
         self.route = route
-        self.mileage = mileage
 
         def ID(self):
             print(ID)
@@ -16,13 +13,25 @@ class Truck:
         def route(self):
             print(route)
 
-        def mileage(self):
-            print(mileage)
+#list of packages to build Truck object
+T1Packages = []
+T2Packages = []
+T3Packages = []
 
+#list of routes to build Truck object
+T1Route = []
+T2Route = []
+T3Route = []
 
-def mileage(Truck):
-    totalMileage = 0
-    for i in Truck.mileage:
-        totalMileage += float(i)
+def loadPachages(Package):
+    if Package.truck == "T1":
+        T1Packages.append(Package)
+        T1Route.append(Package.address)
 
-    print(totalMileage)
+    elif Package.truck == "T2":
+        T2Packages.append(Package)
+        T2Route.append(Package.address)
+
+    else:
+        T3Packages.append(Package)
+        T3Packages.append(Package.address)

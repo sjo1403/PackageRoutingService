@@ -1,5 +1,4 @@
-
-
+import HashTable
 import Packages
 
 #read data from packages file
@@ -17,7 +16,12 @@ for line in rawData:
         trim = string.strip().split('\t')
         packageData.append(trim)
 
-for line in range(1,40):
+#create HashTable instance and insert packages
+
+packages = HashTable.HashTable()
+
+i = 1   #int i used for key in HashTable
+for line in range(1,41):    #create Package objects from packageFile data
     packageID = packageData[line][0]
     address = packageData[line][1]
     city = packageData[line][2]
@@ -25,13 +29,10 @@ for line in range(1,40):
     zip = packageData[line][4]
     deadline = packageData[line][5]
     mass = packageData[line][6]
-    #notes = packageData[line][7]
+    truck = packageData[line][7]
 
-    package = Packages.Package(packageID,address,city,state,zip,deadline,mass)
-    Packages.addPackage(package)
+    Package = Packages.Package(packageID,address,city,state,zip,deadline,mass,truck)
+    packages.hashInsert(i, Package)
+    Trucks.loadPachages(Package)
 
-Packages.getPackages()
-
-t1 = Trucks.Truck(1, [], [], [])
-t1r = Trucks.Truck(2,[], [], [])
-t2 = Trucks.Truck(1,[], [], [])
+    i += 1

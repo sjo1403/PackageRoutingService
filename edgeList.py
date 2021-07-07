@@ -1,9 +1,5 @@
-
-
 #read data from distance table
 import csv
-import random
-import token
 
 data = open("distances.csv", 'r')
 rawData = csv.reader(data)

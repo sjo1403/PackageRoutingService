@@ -1,7 +1,5 @@
-
-
 class Package:
-    def __init__(self, ID, address, city, state, zip, deadline, mass, notes=""):
+    def __init__(self, ID, address, city, state, zip, deadline, mass, truck):
         self.ID = ID
         self.address = address
         self.city = city
@@ -9,7 +7,7 @@ class Package:
         self.zip = zip
         self.deadline = deadline
         self.mass = mass
-        self.notes = notes
+        self.truck = truck
 
         def ID(self):
             print(ID)
@@ -25,20 +23,11 @@ class Package:
             print(deadline)
         def mass(self):
             print(mass)
-        def notes(self):
-            print(notes)
-
-packages = []
-
-def addPackage(Package):
-    packages.append(Package)
+        def truck(self):
+            print(truck)
 
 def info(Package):
-    info = str(Package.ID) + "\t" + str(Package.address) + "\t" + str(Package.city) + ", " + \
+    info = "Package ID: " + str(Package.ID) + "\t" + str(Package.address) + "\t" + str(Package.city) + ", " + \
            str(Package.state) + "\t" + str(Package.zip) + "\tDELIVER BY: " + str(Package.deadline) + "\t" \
-           + str(Package.mass) + " pounds\t" + str(Package.notes)
+           + str(Package.mass) + " pounds"
     print(info)
-
-def getPackages():
-    for line in packages:
-        info(line)
