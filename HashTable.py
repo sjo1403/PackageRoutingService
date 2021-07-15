@@ -1,5 +1,6 @@
 import Packages
 
+
 class HashTable(object):
     def __init__(self, length = 41):
         self.array = [None] * length
@@ -16,3 +17,11 @@ class HashTable(object):
         else:
             package = self.array[index][1]
             Packages.info(package)
+
+    def getValue(self, key):
+        index = key
+        if self.array[index] is None:
+            print("Key Error: Package ID '0' does not exist.")
+
+        else:
+            return self.array[index][1]

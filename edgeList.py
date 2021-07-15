@@ -35,7 +35,7 @@ for i in range(0,27):   #columns
         two_list.append(locations[i])
         two_list.append(locations[j])
 
-        trip_list.append(miles[j][i])    #finds the distance between locations j and i
+        trip_list.append(float(miles[j][i]))    #finds the distance between locations j and i
         trip_list.append(two_list)
         weightedEdgeList.append(trip_list)
 
@@ -67,11 +67,12 @@ while len(path) < 27:
             continue
 
 for i in path:
-    print(i)
-
+    print(str(i))
+"""""
 floatDistance = 0
 for i in distanceTraveled:
     floatDistance += float(i)
 
 print("Miles traveled: " + str(floatDistance))
 print(distanceTraveled)
+"""
