@@ -2,4 +2,4 @@
 
 import Packages
 
-Packages.checkStatus(10, 30)
+Packages.checkStatus(8, 45)

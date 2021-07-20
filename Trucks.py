@@ -1,6 +1,7 @@
 class Truck:
-    def __init__(self, ID, packages, start, route, distance):
+    def __init__(self, ID, name, packages, start, route, distance):
         self.ID = ID
+        self.name = name
         self.packages = packages
         self.start = start
         self.route = route
@@ -45,8 +46,7 @@ T11Route = \
 
 
 T22Route = \
- ['Western Governors University 4001 South 700 East Salt Lake City UT 84107',
-'Deker Lake 2300 Parkway Blvd',
+ ['Deker Lake 2300 Parkway Blvd',
 'Redwood Park 3060 Lester St',
 'Salt Lake County Mental Health 3148 S 1100 W',
 'Salt Lake County/United Police Dept 3365 S 900 W',
@@ -56,7 +56,7 @@ T22Route = \
 'Columbus Library 2530 S 500 E',
 'Sugar House Park 1330 2100 S',
 'Rice Terrace Pavilion Park 600 E 900 South',
-'Third District Juvenile Court 410 S State St']
+'Third District Juvenile Court 410 South State St']
 
 #list of truck Distances in miles
 T1Dist = [1.9, 2.0, 3.4, 1.3, 3.1, 2.3, 0.5, 1.4, 7.6]
@@ -79,10 +79,10 @@ def loadPackages(Package):
         T22Packages.append(Package)
 
 
-truck1 = Truck("Truck 1", T1Packages, 480, T1Route, T1Dist)
-truck2 = Truck("Truck 2", T2Packages, 480, T2Route, T2Dist)
-truck11 = Truck("Truck 1", T11Packages, 559, T11Route, T11Dist)
-truck22 = Truck("Truck 2", T22Packages, 580, T22Route, T22Dist)
+truck1 = Truck("T1", "Truck 1", T1Packages, 480, T1Route, T1Dist)
+truck2 = Truck("T2", "Truck 2", T2Packages, 480, T2Route, T2Dist)
+truck11 = Truck("T11", "Truck 1", T11Packages, 559, T11Route, T11Dist)
+truck22 = Truck("T22", "Truck 2", T22Packages, 580, T22Route, T22Dist)
 trucks.append(truck1)
 trucks.append(truck2)
 trucks.append(truck11)

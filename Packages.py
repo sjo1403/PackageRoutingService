@@ -14,30 +14,25 @@ class Package:
         self.truck = truck
         self.status = status
 
-
 def info(Package):
     info = "Package ID: " + str(Package.ID) + "\t" + str(Package.address) + "\t" + str(Package.city) + ", " + \
            str(Package.state) + "\t" + str(Package.zip) + "\tDELIVER BY: " + str(Package.deadline) + "\t" \
            + str(Package.mass) + " pounds\t" + str(Package.status)
     print(info)
 
-
 def checkStatus(hour, minute, packageID =None):
     tf = timedelta(hours=hour, minutes=minute)
     print("PACKAGE STATUS AS OF " + str(tf) + ":\n")
 
     for truck in Trucks.trucks:
-
         hour = int(truck.start / 60)
         minute = truck.start % 60
-
         ti = timedelta(hours=hour, minutes=minute)
         delta = tf - ti
         timeElapsed = delta.total_seconds() / 60
-
         currentMile = (timeElapsed * 0.3)
+        totalMiles = 0  #total miles traveled by 1 truck going 18mph
 
-        totalMiles = 0
         for d in truck.distance:
             totalMiles += d
 
@@ -46,8 +41,11 @@ def checkStatus(hour, minute, packageID =None):
                 setStatus(package, "AT-HUB")
             continue
 
-        elif currentMile > totalMiles:
+        elif currentMile > totalMiles:  #all packages in the truck were delivered before reaching totalMiles
+            bulkMiles = 0   #sum of distances in route
             deliverPackage(truck, len(truck.distance))
+            for m in truck.distance:
+                bulkMiles += m
             continue
 
         else:
@@ -71,14 +69,28 @@ def checkStatus(hour, minute, packageID =None):
         value = packages.getValue(packageID)
         info(value)
 
+    totalMilesDriven = 0
+    for i in milesDriven:
+        totalMilesDriven += i
 
+    print("\nTotal miles driven: " + str(totalMilesDriven))
+
+
+milesDriven = [] # total miles driven by each truck
 def deliverPackage(truck, index):
+    total = 0
+
+    for d in truck.distance[:index + 1]:
+        total += d
+
+    milesDriven.append(total)
+
     for i in range(index + 1):
         for val in range(1, 41):
             value = packages.getValue(val)
 
+            sum = 0
             if getAddress(value) in truck.route[i]:
-                sum = 0
                 for m in truck.distance[:i]:
                     sum += m
 
@@ -87,9 +99,6 @@ def deliverPackage(truck, index):
                 minute = float(deliveryTime) % 60
                 t = timedelta(hours=hour, minutes=minute)
                 setStatus(value, "DELIVERED AT: " + str(t))
-
-            else:
-                continue
 
 
 def setStatus(Package, status):
