@@ -1,8 +1,9 @@
+from datetime import timedelta
 import HashTable
 import Trucks
 
 class Package:
-    def __init__(self, ID, address, city, state, zip, deadline, mass, truck, status="AT-HUB"):
+    def __init__(self, ID, address, city, state, zip, deadline, mass, truck, status="EN-ROUTE"):
         self.ID = ID
         self.address = address
         self.city = city
@@ -21,44 +22,82 @@ def info(Package):
     print(info)
 
 
-def checkStatus(currentTime):
-    print("Time: " + str(currentTime))
+def checkStatus(hour, minute, packageID =None):
+    tf = timedelta(hours=hour, minutes=minute)
+    print("PACKAGE STATUS AS OF " + str(tf) + ":\n")
 
     for truck in Trucks.trucks:
 
-        timeElapsed = (currentTime - truck.start)
+        hour = int(truck.start / 60)
+        minute = truck.start % 60
+
+        ti = timedelta(hours=hour, minutes=minute)
+        delta = tf - ti
+        timeElapsed = delta.total_seconds() / 60
+
         currentMile = (timeElapsed * 0.3)
 
+        totalMiles = 0
+        for d in truck.distance:
+            totalMiles += d
+
         if currentMile <= 0:
+            for package in truck.packages:
+                setStatus(package, "AT-HUB")
+            continue
+
+        elif currentMile > totalMiles:
+            deliverPackage(truck, len(truck.distance))
             continue
 
         else:
-            sum = 0
+            sum = truck.distance[0]
+            i = 1
             index = 0
+
             while sum < currentMile:
+                index = i
                 sum += truck.distance[index]
-                index += 1
+                i += 1
 
             deliverPackage(truck, index)
 
-    for i in range(1, 41):
-        value = packages.getValue(i)
+    if packageID == None:
+        for i in range(1, 41):
+            value = packages.getValue(i)
+            info(value)
+
+    else:
+        value = packages.getValue(packageID)
         info(value)
 
 
 def deliverPackage(truck, index):
-    for i in range(1, 41):
-        value = packages.getValue(i)
+    for i in range(index + 1):
+        for val in range(1, 41):
+            value = packages.getValue(val)
 
-        for t in truck.packages[:index - 1]:
-            if t == value:
-                setStatus(value)
+            if getAddress(value) in truck.route[i]:
+                sum = 0
+                for m in truck.distance[:i]:
+                    sum += m
+
+                deliveryTime = str((sum / 18 * 60) + truck.start)
+                hour = int(float(deliveryTime) / 60)
+                minute = float(deliveryTime) % 60
+                t = timedelta(hours=hour, minutes=minute)
+                setStatus(value, "DELIVERED AT: " + str(t))
+
+            else:
+                continue
 
 
-def setStatus(Package):
-    Package.status = "Delivered"
+def setStatus(Package, status):
+    Package.status = status
 
 
+def getAddress(package):
+    return package.address
 
 # read data from packages file
 import csv

@@ -1,6 +1,5 @@
-#Shantel Johnson
+# Shantel Johnson
 
 import Packages
 
-
-Packages.checkStatus(42)
+Packages.checkStatus(10, 30)
