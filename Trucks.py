@@ -1,5 +1,5 @@
 class Truck:
-    def __init__(self, ID, name, packages, start, route, distance):
+    def __init__(self, ID, name, packages, start, route, distance):     # create instance of Truck object
         self.ID = ID
         self.name = name
         self.packages = packages
@@ -7,15 +7,16 @@ class Truck:
         self.route = route
         self.distance = distance
 
+
 trucks = []
 
-#list of packages in truck
+# list of packages in truck
 T1Packages = []
 T2Packages = []
 T11Packages = []
 T22Packages = []
 
-#list of truck routes
+# list of truck routes
 T1Route = \
  ['Western Governors University 4001 South 700 East Salt Lake City UT 84107',
 'Cottonwood Regional Softball Complex 4300 S 1300 E',
@@ -58,14 +59,14 @@ T22Route = \
 'Rice Terrace Pavilion Park 600 E 900 South',
 'Third District Juvenile Court 410 South State St']
 
-#list of truck Distances in miles
+# list of truck Distances in miles
 T1Dist = [1.9, 2.0, 3.4, 1.3, 3.1, 2.3, 0.5, 1.4, 7.6]
 T2Dist = [6.5, 1.0, 0.6, 4.2, 1.6, 6.4, 0.6, 0.4, 8.6]
 T11Dist = [2.4]
 T22Dist = [1.6, 1.3, 0.6, 1.7, 1.0, 0.8, 1.5, 1.6, 2.8, 1.8]
 
 
-def loadPackages(Package):
+def loadPackages(Package):  # load packages onto each truck
     if Package.truck == "T1":
         T1Packages.append(Package)
 
@@ -79,6 +80,7 @@ def loadPackages(Package):
         T22Packages.append(Package)
 
 
+#   create truck objects from information above
 truck1 = Truck("T1", "Truck 1", T1Packages, 480, T1Route, T1Dist)
 truck2 = Truck("T2", "Truck 2", T2Packages, 480, T2Route, T2Dist)
 truck11 = Truck("T11", "Truck 1", T11Packages, 559, T11Route, T11Dist)
